@@ -7,7 +7,7 @@ ex: ls, env
 ```
 
 ```
-To add comments, use the config.txt file:
+To add the commands, use the commands.txt file:
 it should be used like this:
 
 --------------------------------------------------+
