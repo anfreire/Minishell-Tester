@@ -28,8 +28,8 @@ prompt_user() {
   read -p "Enter your choice: " user_input
   case $user_input in
     1)
-      bash ./.converter.sh
-	  gnome-terminal -- bash -c "$(pwd)/../minishell < commands_only.txt; exec bash"
+     	bash ./converter.sh ./tests.txt
+	gnome-terminal -- bash -c "$(pwd)/../minishell < commands_only.txt; exec bash"
       ;;
     2)
       	display_message & install_library & wait
