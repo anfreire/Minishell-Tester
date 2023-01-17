@@ -7,7 +7,7 @@ ex: ls, env
 ```
 
 ```
-To add the commands, use the commands.txt file:
+To add the commands, use the tests.txt file:
 it should be used like this:
 
 --------------------------------------------------+
