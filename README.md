@@ -2,7 +2,7 @@
 
 ## Instructions
 ```
-Dont add multi line commands! not supported yet!
+Multi line output commands not supported in Normal Test. Only in Brute Test
 ex: ls, env
 ```
 
