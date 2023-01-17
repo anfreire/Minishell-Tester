@@ -41,6 +41,11 @@ def remove_even_lines(lines):
             cleaned_lines.append(line)
     return cleaned_lines
 
+def read_quoted_characters(file_path):
+    with open(file_path, 'r') as file:
+        characters = file.read().replace('\n','').replace('"','')
+    return characters
+
 class Tests():
 	def __init__(self, string, commands):
 		self.commands = list(commands)
@@ -51,8 +56,10 @@ class Tests():
 		self.output_bash = []
 		self.output_minishell = []
 		self.output_bash, self.output_minishell = self.get_output()
+		self.prompt = ""
+		self.prompt = read_quoted_characters("prompt.txt")
 		self.output_bash = remove_blank_lines(self.output_bash)
-		self.output_minishell = remove_sequence(self.output_minishell, "$ ▶ ")
+		self.output_minishell = remove_sequence(self.output_minishell, self.prompt)
 		self.output_minishell = remove_blank_lines(self.output_minishell) 
 		self.output_minishell = remove_even_lines(self.output_minishell)
 
@@ -118,7 +125,7 @@ class Tests():
 			score = (self.score * 100) / self.questions
 			print(f"{bcolors.WARNING}You got {score}%!\n{self.score} out of {self.questions} questions\n{bcolors.ENDC}")
 		except:
-			pass
+			print(bcolors.FAIL+'Invalid Score.'+bcolors.ENDC)
 
 	def	get_output_2(self, flag):
 		print(f"\n\n{bcolors.HEADER} - {self.string} - {bcolors.ENDC}\n")
@@ -147,7 +154,27 @@ class Tests():
 				print("\n")
 
 
-test = Tests("123", ["teste", "teste", "echo pinto"])
+def create_tests_from_file(file_path):
+	tests = []
+	try:
+		with open(file_path, 'r') as file:
+			lines = file.readlines()
+			i = 0
+			while i < len(lines):
+				try:
+					string = lines[i].strip()
+					commands = [x.strip() for x in lines[i + 1].strip().split(',')]
+					tests.append(Tests(string, commands))
+					i += 3
+				except:
+					break
+	except:
+		print(bcolors.FAIL+'\n\nInvalid File...'+bcolors.ENDC)
+		exit
+	return tests
+
+
+tests = create_tests_from_file('tests.txt')
 
 def print_menu():
 	print(f"{bcolors.BOLD}\n\n\n(-(-_-(-_(-_(-_-)_-)-_-)_-)_-)-)\n	MINISHELL TESTER	\n(-(-_-(-_(-_(-_-)_-)-_-)_-)_-)-)\n{bcolors.ENDC}")
@@ -158,14 +185,17 @@ def print_menu():
 	print("\n\nEnter your choice:")
 
 def option_1():
-    test.get_output_2(0)
+	for test in tests:
+		test.get_output_2(0)
 
 def option_2():
-	test.get_output_2(1)
+	for test in tests:
+		test.get_output_2(1)
 
 
 def	option_3():
-	test.get_comparison()
+	for test in tests:
+		test.get_comparison()
 
 while True:
     print_menu()
