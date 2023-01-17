@@ -1,4 +1,6 @@
 # Minishell-Tester
+
+### Run the test_minishell.sh script to launch the tester 
 ```
 Dont add multi line commands! not supported yet!
 ex: ls, env
